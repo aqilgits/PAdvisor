@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
-import 'package:padvisor/main.dart';
+import 'package:padvisor/student/advisor.dart';
 import 'package:padvisor/student/dashboard.dart';
 
 class StudentWrapper extends StatefulWidget {
@@ -15,7 +15,7 @@ class _StudentWrapperState extends State<StudentWrapper> {
 
   @override
   void initState() {
-    _child = DashboardStudent();
+    _child = const DashboardStudent();
     super.initState();
   }
 
@@ -67,21 +67,19 @@ class _StudentWrapperState extends State<StudentWrapper> {
     setState(() {
       switch (index) {
         case 0:
-          _child = DashboardStudent();
+          _child = const DashboardStudent();
           break;
         case 1:
-          _child = DashboardStudent();
+          _child = const DashboardStudent();
           break;
         case 2:
-          _child = MyHomePage(
-            title: "demo",
-          );
+          _child = const Advisor();
           break;
       }
       _child = AnimatedSwitcher(
         switchInCurve: Curves.easeOut,
         switchOutCurve: Curves.easeIn,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         child: _child,
       );
     });
