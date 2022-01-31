@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:padvisor/student/advisor.dart';
 import 'package:padvisor/student/dashboard.dart';
+import 'package:padvisor/student/report.dart';
 
 class StudentWrapper extends StatefulWidget {
   const StudentWrapper({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _StudentWrapperState extends State<StudentWrapper> {
     setState(() {
       switch (index) {
         case 0:
-          _child = const DashboardStudent();
+          _child = const Report();
           break;
         case 1:
           _child = const DashboardStudent();

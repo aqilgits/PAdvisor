@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DashboardStudent extends StatefulWidget {
   const DashboardStudent({Key? key}) : super(key: key);
@@ -8,13 +9,15 @@ class DashboardStudent extends StatefulWidget {
 }
 
 class _DashboardStudentState extends State<DashboardStudent> {
+  final Stream<QuerySnapshot> info =
+      FirebaseFirestore.instance.collection('Info').snapshots();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.topCenter,
             child: Container(
@@ -43,27 +46,64 @@ class _DashboardStudentState extends State<DashboardStudent> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            width: MediaQuery.of(context).size.width * 0.9,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
+          const SizedBox(height: 20.0),
+          StreamBuilder<QuerySnapshot>(
+            stream: info,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final data = snapshot.requireData;
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: const Text(
-              "Information",
-            ),
+                child: ListView(
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  children: snapshot.data!.docs.map((document) {
+                    return Container(
+                      child: Center(
+                          child: Column(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom:
+                                    BorderSide(color: Colors.black, width: 2.0),
+                              ),
+                            ),
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              document['Title'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text(document['Desc']),
+                          const SizedBox(height: 30.0),
+                        ],
+                      )),
+                    );
+                  }).toList(),
+                ),
+              );
+            },
           ),
         ],
       ),
