@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padvisor/student/reportForm.dart';
 
 class Report extends StatefulWidget {
   const Report({Key? key}) : super(key: key);
@@ -22,12 +23,35 @@ class _ReportState extends State<Report> {
               alignment: Alignment.centerLeft,
               height: 50,
               width: MediaQuery.of(context).size.width * 0.9,
-              child: const Text(
-                "Report",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Report",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        primary: Colors.red[900],
+                        shadowColor: Colors.red[900]),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ReportForm(),
+                        ),
+                      );
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
               ),
               decoration: BoxDecoration(
                 color: Colors.grey[200],

@@ -77,12 +77,12 @@ class _StudentWrapperState extends State<StudentWrapper> {
           _child = const Advisor();
           break;
       }
-      _child = AnimatedSwitcher(
-        switchInCurve: Curves.easeOut,
-        switchOutCurve: Curves.easeIn,
-        duration: const Duration(milliseconds: 500),
-        child: _child,
-      );
+      // _child = AnimatedSwitcher(
+      //   switchInCurve: Curves.easeOut,
+      //   switchOutCurve: Curves.easeIn,
+      //   duration: const Duration(milliseconds: 500),
+      //   child: _child,
+      // );
     });
   }
 }

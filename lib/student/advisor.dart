@@ -75,17 +75,23 @@ class _AdvisorState extends State<Advisor> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              const Text(
-                                'Ng Keng Yap',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
+                              Container(
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                        color: Colors.white, width: 2.0),
+                                  ),
                                 ),
-                              ),
-                              const Text(
-                                '______________________________________________',
-                                style: TextStyle(color: Colors.white),
+                                child: const Text(
+                                  'Ng Keng Yap',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
