@@ -59,7 +59,7 @@ class _DashboardStudentState extends State<DashboardStudent> {
               final data = snapshot.requireData;
               return Container(
                 padding: EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width * 0.9,
+                width: MediaQuery.of(context).size.width * 0.95,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10.0),

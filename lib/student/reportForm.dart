@@ -90,6 +90,15 @@ class _ReportFormState extends State<ReportForm> {
                       hintText: "Enter your text here"),
                 ),
               ),
+              const SizedBox(height: 20),
+              Container(
+                alignment: Alignment.topLeft,
+                child: const Text(
+                  "Attachment",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () async {
                     await FirebaseFirestore.instance.collection("Report").add({
