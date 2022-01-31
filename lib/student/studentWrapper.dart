@@ -25,6 +25,10 @@ class _StudentWrapperState extends State<StudentWrapper> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red[900],
+        title: const Text(
+          "PADVISOR",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
             onPressed: () {},
