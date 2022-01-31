@@ -16,7 +16,7 @@ class _ReportFormState extends State<ReportForm> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red[900],
-        title: Text("New Report"),
+        title: const Text("New Report"),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -34,10 +34,18 @@ class _ReportFormState extends State<ReportForm> {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
+                  color: Colors.white,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: TextField(
                   onChanged: (value) {
@@ -60,10 +68,18 @@ class _ReportFormState extends State<ReportForm> {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
+                  color: Colors.white,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: TextField(
                   onChanged: (value) {
