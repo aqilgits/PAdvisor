@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padvisor/hod/report.dart';
 
 class ListReport extends StatefulWidget {
   const ListReport({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class ListReport extends StatefulWidget {
 class _ListReportState extends State<ListReport> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
       child: Column(
         children: [
           Container(
@@ -37,7 +38,14 @@ class _ListReportState extends State<ListReport> {
                         shape: const CircleBorder(),
                         primary: Colors.red[900],
                         shadowColor: Colors.red[900]),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Report(),
+                        ),
+                      );
+                    },
                     child: const Icon(
                       Icons.add,
                       color: Colors.white,
@@ -58,6 +66,24 @@ class _ListReportState extends State<ListReport> {
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 15.0),
+          ListView.builder(
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return Card(
+                color: Colors.red,
+                margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
+                child: ListTile(
+                  title: Text('Title'),
+                  subtitle: Text('Status'),
+                  onTap: () {},
+                ),
+              );
+            },
           ),
         ],
       ),
