@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:padvisor/adviser/listAnnouncement.dart';
+import 'package:padvisor/adviser/listReport.dart';
+import 'package:padvisor/adviser/listStudent.dart';
 
 class AdviserWrapper extends StatefulWidget {
   const AdviserWrapper({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
     _child = const ListAnnouncement();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +50,7 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
               backgroundColor: Colors.grey[200],
               extras: {"label": "notice"}),
           FluidNavBarIcon(
-              icon: Icons.wysiwyg_outlined,
+              icon: Icons.people_sharp,
               backgroundColor: Colors.grey[200],
               extras: {"label": "advisee"}),
         ],
@@ -74,10 +76,10 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
           _child = const ListAnnouncement();
           break;
         case 1:
-          _child = const ListAnnouncement();
+          _child = const ListReport();
           break;
         case 2:
-          _child = const ListAnnouncement();
+          _child = const ListStudent();
           break;
       }
     });
