@@ -12,12 +12,13 @@ class _ViewReportState extends State<ViewReport> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.red[900],
         title: const Text('Report'),
       ),
       body: Container(
-        padding: const EdgeInsets.all(10),
-        width: MediaQuery.of(context).size.width * 0.95,
+        padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+        alignment: Alignment.center,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10.0),
@@ -33,6 +34,7 @@ class _ViewReportState extends State<ViewReport> {
           child: Column(
             children: [
               Container(
+                padding: EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Colors.black, width: 2.0),

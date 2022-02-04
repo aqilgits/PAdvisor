@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "845719177702",
-    "firebase_url": "https://padvisor-64dc4-default-rtdb.firebaseio.com",
-    "project_id": "padvisor-64dc4",
-    "storage_bucket": "padvisor-64dc4.appspot.com"
+    "project_number": "329948693815",
+    "project_id": "padvisor-7f39a",
+    "storage_bucket": "padvisor-7f39a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:845719177702:android:910a130e4774dcb01cee27",
+        "mobilesdk_app_id": "1:329948693815:android:a269a8ab6cf8c96f1f46b2",
         "android_client_info": {
           "package_name": "com.example.padvisor"
         }
       },
       "oauth_client": [
         {
-          "client_id": "845719177702-vd3f39df2s1cpcb9hg333nukvjtls1j0.apps.googleusercontent.com",
+          "client_id": "329948693815-4ljafr8fo75cisvdenrpimismmu1l4n5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD3hre5io97gHqvkV6YZHavQhv7_K03O-I"
+          "current_key": "AIzaSyDd3xI8uWrVrW0qDOsEejP3Hn5oqLcCdKQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "845719177702-vd3f39df2s1cpcb9hg333nukvjtls1j0.apps.googleusercontent.com",
+              "client_id": "329948693815-4ljafr8fo75cisvdenrpimismmu1l4n5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padvisor/adviser/report.dart';
+import 'package:padvisor/adviser/viewReport.dart';
 
 class ListReport extends StatefulWidget {
   const ListReport({Key? key}) : super(key: key);
@@ -33,24 +34,6 @@ class _ListReportState extends State<ListReport> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        primary: Colors.red[900],
-                        shadowColor: Colors.red[900]),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Report(),
-                        ),
-                      );
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                  )
                 ],
               ),
               decoration: BoxDecoration(
@@ -86,7 +69,14 @@ class _ListReportState extends State<ListReport> {
                     'Status',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ViewReport(),
+                      ),
+                    );
+                  },
                 ),
               );
             },

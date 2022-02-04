@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padvisor/models/announcement_model.dart';
+import 'package:padvisor/services/database.dart';
 
 class Announcement extends StatefulWidget {
   const Announcement({Key? key}) : super(key: key);
@@ -8,8 +11,10 @@ class Announcement extends StatefulWidget {
 }
 
 class _AnnouncementState extends State<Announcement> {
-  var _dropDownValue;
+  String _dropDownValue = '';
+  final List<String> cohort = ["19-20", "20-21", "21-22"];
   String details = '';
+  final db = DatabaseService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +59,7 @@ class _AnnouncementState extends State<Announcement> {
                         ),
                   isExpanded: true,
                   iconSize: 30.0,
-                  items: ['19/20', '20/21', '21/22'].map(
+                  items: cohort.map(
                     (val) {
                       return DropdownMenuItem<String>(
                         value: val,
@@ -65,7 +70,7 @@ class _AnnouncementState extends State<Announcement> {
                   onChanged: (val) {
                     setState(
                       () {
-                        _dropDownValue = val;
+                        _dropDownValue = val as String;
                       },
                     );
                   },
@@ -112,7 +117,10 @@ class _AnnouncementState extends State<Announcement> {
                   padding: const EdgeInsets.all(10),
                 ),
                 onPressed: () async {
-                  //uploadFileToFirebase();
+                  await db.createAnnouncement(
+                    AnnouncementModels(
+                        details: details, cohort: _dropDownValue),
+                  );
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),

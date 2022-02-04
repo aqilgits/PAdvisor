@@ -112,7 +112,6 @@ class _AnnouncementState extends State<Announcement> {
                   padding: const EdgeInsets.all(10),
                 ),
                 onPressed: () async {
-                  //uploadFileToFirebase();
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),

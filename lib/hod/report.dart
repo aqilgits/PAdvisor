@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:padvisor/services/database.dart';
+import 'package:padvisor/models/report_model.dart';
 
 class Report extends StatefulWidget {
   const Report({Key? key}) : super(key: key);
@@ -13,6 +16,9 @@ class _ReportState extends State<Report> {
   String desc = "";
   String title = "";
   File? file;
+  String downloadUrl = '';
+  var storage = FirebaseStorage.instance;
+  final db = DatabaseService();
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -30,6 +36,13 @@ class _ReportState extends State<Report> {
     } else {
       return Text("File selecetd");
     }
+  }
+
+  Future uploadFileToFirebase() async {
+    var filename = DateTime.now().toString();
+    TaskSnapshot snapshot =
+        await storage.ref().child("File/$filename").putFile(file!);
+    downloadUrl = await snapshot.ref.getDownloadURL();
   }
 
   @override
@@ -161,7 +174,9 @@ class _ReportState extends State<Report> {
                   padding: const EdgeInsets.all(10),
                 ),
                 onPressed: () async {
-                  //uploadFileToFirebase();
+                  await uploadFileToFirebase();
+                  await db.createReport(
+                      ReportModels(title: title, desc: desc, url: downloadUrl));
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),
