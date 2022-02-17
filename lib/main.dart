@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:padvisor/adviser/adviserWrapper.dart';
 import 'package:padvisor/student/studentWrapper.dart';
 
 void main() async {

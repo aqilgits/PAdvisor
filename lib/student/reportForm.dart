@@ -48,7 +48,6 @@ class _ReportFormState extends State<ReportForm> {
         "Desc": desc,
       });
     } else {
-      print('Error from image repo ${snapshot.state.toString()}');
       throw ('error');
     }
   }
