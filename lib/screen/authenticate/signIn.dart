@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padvisor/services/auth.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -9,6 +10,15 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  bool loading = false;
+
+  //text field state
+  String email = '';
+  String password = '';
+  String error = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,10 +77,10 @@ class _SignInState extends State<SignIn> {
                     ],
                   ),
                   child: Form(
-                    key: null,
+                    key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        TextField(
+                        TextFormField(
                           decoration: InputDecoration(
                             labelText: 'ID',
                             labelStyle: const TextStyle(color: Colors.grey),
@@ -84,6 +94,18 @@ class _SignInState extends State<SignIn> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return 'Enter an email';
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (val) {
+                            setState(() {
+                              email = val;
+                            });
+                          },
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
@@ -100,6 +122,15 @@ class _SignInState extends State<SignIn> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          obscureText: true,
+                          validator: (val) => val!.length < 6
+                              ? 'Enter a password 6 chars or long'
+                              : null,
+                          onChanged: (val) {
+                            setState(() {
+                              password = val;
+                            });
+                          },
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
@@ -109,7 +140,25 @@ class _SignInState extends State<SignIn> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                loading = true;
+                              });
+                              dynamic result =
+                                  await _auth.singInWithEmailAndPassword(
+                                email,
+                                password,
+                              );
+                              if (result == null) {
+                                setState(() {
+                                  error =
+                                      'could not sign in with those credential';
+                                  loading = false;
+                                });
+                              }
+                            }
+                          },
                           child: const Text("Login"),
                         ),
                         TextButton(
