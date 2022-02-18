@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padvisor/screen/authenticate/register.dart';
 import 'package:padvisor/screen/authenticate/signIn.dart';
 
 class Authenticate extends StatefulWidget {
@@ -21,8 +22,7 @@ class _AuthenticateState extends State<Authenticate> {
     if (showSignIn) {
       return SignIn(toggleView: toggleView);
     } else {
-      return SignIn(toggleView: toggleView);
-      // return Register(toggleView: toggleView);
+      return Register(toggleView: toggleView);
     }
   }
 }

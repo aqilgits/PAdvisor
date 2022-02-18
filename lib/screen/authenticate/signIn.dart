@@ -63,7 +63,7 @@ class _SignInState extends State<SignIn> {
                 Container(
                   padding: const EdgeInsets.all(15.0),
                   width: 320,
-                  height: 300,
+                  height: 320,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10.0),
@@ -162,7 +162,9 @@ class _SignInState extends State<SignIn> {
                           child: const Text("Login"),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            widget.toggleView();
+                          },
                           child: const Text("Register account"),
                         )
                       ],

@@ -3,9 +3,10 @@ import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:padvisor/screen/student/advisor.dart';
 import 'package:padvisor/screen/student/dashboard.dart';
 import 'package:padvisor/screen/student/report.dart';
+import 'package:padvisor/services/auth.dart';
 
 class StudentWrapper extends StatefulWidget {
-  const StudentWrapper({Key? key}) : super(key: key);
+  StudentWrapper({Key? key}) : super(key: key);
 
   @override
   _StudentWrapperState createState() => _StudentWrapperState();
@@ -13,6 +14,7 @@ class StudentWrapper extends StatefulWidget {
 
 class _StudentWrapperState extends State<StudentWrapper> {
   Widget? _child;
+  final AuthService _auth = AuthService();
 
   @override
   void initState() {
@@ -30,12 +32,16 @@ class _StudentWrapperState extends State<StudentWrapper> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.account_circle_outlined),
-            color: Colors.white,
-            iconSize: 40,
-          )
+          TextButton.icon(
+            onPressed: () async {
+              await _auth.signOut();
+            },
+            icon: const Icon(Icons.person),
+            label: const Text('logout'),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+            ),
+          ),
         ],
       ),
       body: _child,
@@ -69,24 +75,20 @@ class _StudentWrapperState extends State<StudentWrapper> {
   }
 
   void _handleNavigationChange(int index) {
-    setState(() {
-      switch (index) {
-        case 0:
-          _child = const Report();
-          break;
-        case 1:
-          _child = const DashboardStudent();
-          break;
-        case 2:
-          _child = const Advisor();
-          break;
-      }
-      // _child = AnimatedSwitcher(
-      //   switchInCurve: Curves.easeOut,
-      //   switchOutCurve: Curves.easeIn,
-      //   duration: const Duration(milliseconds: 500),
-      //   child: _child,
-      // );
-    });
+    setState(
+      () {
+        switch (index) {
+          case 0:
+            _child = const Report();
+            break;
+          case 1:
+            _child = const DashboardStudent();
+            break;
+          case 2:
+            _child = const Advisor();
+            break;
+        }
+      },
+    );
   }
 }
