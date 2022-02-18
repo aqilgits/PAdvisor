@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
-import 'package:padvisor/hod/listAnnouncement.dart';
-import 'package:padvisor/hod/listReport.dart';
+import 'package:padvisor/screen/adviser/listAnnouncement.dart';
+import 'package:padvisor/screen/adviser/listReport.dart';
+import 'package:padvisor/screen/adviser/listStudent.dart';
 
-class HodWrapper extends StatefulWidget {
-  const HodWrapper({Key? key}) : super(key: key);
+class AdviserWrapper extends StatefulWidget {
+  const AdviserWrapper({Key? key}) : super(key: key);
 
   @override
-  _HodWrapperState createState() => _HodWrapperState();
+  _AdviserWrapperState createState() => _AdviserWrapperState();
 }
 
-class _HodWrapperState extends State<HodWrapper> {
+class _AdviserWrapperState extends State<AdviserWrapper> {
   Widget? _child;
 
   @override
@@ -47,7 +48,11 @@ class _HodWrapperState extends State<HodWrapper> {
           FluidNavBarIcon(
               icon: Icons.wysiwyg_outlined,
               backgroundColor: Colors.grey[200],
-              extras: {"label": "report"}),
+              extras: {"label": "notice"}),
+          FluidNavBarIcon(
+              icon: Icons.people_sharp,
+              backgroundColor: Colors.grey[200],
+              extras: {"label": "advisee"}),
         ],
         onChange: _handleNavigationChange,
         style: FluidNavBarStyle(
@@ -72,6 +77,9 @@ class _HodWrapperState extends State<HodWrapper> {
           break;
         case 1:
           _child = const ListReport();
+          break;
+        case 2:
+          _child = const ListStudent();
           break;
       }
     });

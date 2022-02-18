@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:padvisor/hod/report.dart';
-import 'package:padvisor/hod/viewReport.dart';
+import 'package:padvisor/screen/hod/report.dart';
+import 'package:padvisor/screen/hod/viewReport.dart';
 import 'package:provider/provider.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:padvisor/models/report_model.dart';

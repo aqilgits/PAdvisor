@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:padvisor/adviser/report.dart';
-import 'package:padvisor/adviser/viewReport.dart';
+import 'package:padvisor/screen/adviser/report.dart';
+import 'package:padvisor/screen/adviser/viewReport.dart';
 
 class ListReport extends StatefulWidget {
   const ListReport({Key? key}) : super(key: key);

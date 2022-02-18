@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padvisor/hod/announcement.dart';
+import 'package:padvisor/screen/hod/announcement.dart';
 
 class ListAnnouncement extends StatefulWidget {
   const ListAnnouncement({Key? key}) : super(key: key);

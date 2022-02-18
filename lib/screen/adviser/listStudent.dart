@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padvisor/adviser/archive.dart';
+import 'package:padvisor/screen/adviser/archive.dart';
 
 class ListStudent extends StatefulWidget {
   const ListStudent({Key? key}) : super(key: key);
