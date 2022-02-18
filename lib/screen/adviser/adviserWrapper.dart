@@ -3,6 +3,7 @@ import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:padvisor/screen/adviser/listAnnouncement.dart';
 import 'package:padvisor/screen/adviser/listReport.dart';
 import 'package:padvisor/screen/adviser/listStudent.dart';
+import 'package:padvisor/services/auth.dart';
 
 class AdviserWrapper extends StatefulWidget {
   const AdviserWrapper({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class AdviserWrapper extends StatefulWidget {
 
 class _AdviserWrapperState extends State<AdviserWrapper> {
   Widget? _child;
+  final AuthService _auth = AuthService();
 
   @override
   void initState() {
@@ -31,7 +33,9 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await _auth.signOut();
+            },
             icon: const Icon(Icons.account_circle_outlined),
             color: Colors.white,
             iconSize: 40,

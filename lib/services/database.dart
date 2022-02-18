@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/models/announcement_model.dart';
 import 'package:padvisor/models/report_model.dart';
 
@@ -70,5 +71,19 @@ class DatabaseService {
       'role': role,
       'cohort': cohort,
     });
+  }
+
+  //user data from snapshot
+  UserData _userDatafromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+        uid: uid,
+        role: snapshot.get('role'),
+        cohort: snapshot.get('cohort'),
+        name: snapshot.get('name'));
+  }
+
+  //get user doc stream
+  Stream<UserData> get userData {
+    return userCollection.doc(uid).snapshots().map(_userDatafromSnapshot);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:padvisor/screen/hod/listAnnouncement.dart';
 import 'package:padvisor/screen/hod/listReport.dart';
+import 'package:padvisor/services/auth.dart';
 
 class HodWrapper extends StatefulWidget {
   const HodWrapper({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HodWrapper extends StatefulWidget {
 
 class _HodWrapperState extends State<HodWrapper> {
   Widget? _child;
+  final AuthService _auth = AuthService();
 
   @override
   void initState() {
@@ -30,7 +32,9 @@ class _HodWrapperState extends State<HodWrapper> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await _auth.signOut();
+            },
             icon: const Icon(Icons.account_circle_outlined),
             color: Colors.white,
             iconSize: 40,
