@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/screen/hod/report.dart';
 import 'package:padvisor/screen/hod/viewReport.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,9 @@ class ListReport extends StatefulWidget {
 class _ListReportState extends State<ListReport> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel?>(context);
     return StreamProvider<List<String>>.value(
-        value: DatabaseService().streamReport(),
+        value: DatabaseService(uid: user!.uid).streamReport(),
         catchError: (_, __) => [],
         initialData: [],
         builder: (context, child) {

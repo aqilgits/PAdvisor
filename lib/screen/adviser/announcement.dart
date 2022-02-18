@@ -14,7 +14,7 @@ class _AnnouncementState extends State<Announcement> {
   String _dropDownValue = '';
   final List<String> cohort = ["19-20", "20-21", "21-22"];
   String details = '';
-  final db = DatabaseService();
+  final db = DatabaseService.withoutUID();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:padvisor/screen/student/reportForm.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +17,11 @@ class _ReportState extends State<Report> {
       FirebaseFirestore.instance.collection('Report').snapshots();
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel?>(context);
+
     return StreamProvider<List<String>>.value(
         initialData: [],
-        value: DatabaseService().streamReport(),
+        value: DatabaseService(uid: user!.uid).streamReport(),
         builder: (context, child) {
           return Container(
             child: Column(

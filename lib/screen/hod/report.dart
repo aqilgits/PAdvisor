@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:padvisor/models/report_model.dart';
+import 'package:provider/provider.dart';
 
 class Report extends StatefulWidget {
   const Report({Key? key}) : super(key: key);
@@ -18,7 +20,6 @@ class _ReportState extends State<Report> {
   File? file;
   String downloadUrl = '';
   var storage = FirebaseStorage.instance;
-  final db = DatabaseService();
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -47,6 +48,8 @@ class _ReportState extends State<Report> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel?>(context);
+    final db = DatabaseService(uid: user!.uid);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red[900],

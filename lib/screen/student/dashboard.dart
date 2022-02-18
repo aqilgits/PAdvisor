@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class _DashboardStudentState extends State<DashboardStudent> {
   Widget build(BuildContext context) {
     return StreamProvider<List<String>>.value(
       initialData: [],
-      value: DatabaseService().streamReport(),
+      value: DatabaseService.withoutUID().streamReport(),
       child: SingleChildScrollView(
         child: Column(
           children: [

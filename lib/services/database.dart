@@ -3,6 +3,13 @@ import 'package:padvisor/models/announcement_model.dart';
 import 'package:padvisor/models/report_model.dart';
 
 class DatabaseService {
+  final String uid;
+  DatabaseService({required this.uid});
+  DatabaseService.withoutUID() : uid = "";
+
+  //collection reference
+  final CollectionReference brewCollection =
+      FirebaseFirestore.instance.collection('brew');
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 //create Announcement
@@ -55,5 +62,13 @@ class DatabaseService {
       print(e.toString());
     }
     return data;
+  }
+
+  Future updateUserData(String sugars, String name, int strength) async {
+    return await brewCollection.doc(uid).set({
+      'sugars': sugars,
+      'name': name,
+      'strength': strength,
+    });
   }
 }
