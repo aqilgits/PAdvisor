@@ -8,8 +8,8 @@ class DatabaseService {
   DatabaseService.withoutUID() : uid = "";
 
   //collection reference
-  final CollectionReference brewCollection =
-      FirebaseFirestore.instance.collection('brew');
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('User');
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 //create Announcement
@@ -64,11 +64,11 @@ class DatabaseService {
     return data;
   }
 
-  Future updateUserData(String sugars, String name, int strength) async {
-    return await brewCollection.doc(uid).set({
-      'sugars': sugars,
+  Future updateUserData(String role, String name, String cohort) async {
+    return await userCollection.doc(uid).set({
       'name': name,
-      'strength': strength,
+      'role': role,
+      'cohort': cohort,
     });
   }
 }

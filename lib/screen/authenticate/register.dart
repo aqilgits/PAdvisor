@@ -16,16 +16,17 @@ class _RegisterState extends State<Register> {
 
   //text field state
   String email = '';
+  String name = '';
   String password = '';
   String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[100],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.red[900],
         elevation: 0.0,
-        title: const Text('Sign up to Brew Crew'),
+        title: const Text('Welcome to PAdvisor'),
         actions: <Widget>[
           TextButton.icon(
             onPressed: () {
@@ -38,7 +39,7 @@ class _RegisterState extends State<Register> {
               'Sign in',
             ),
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
           )
         ],
@@ -51,8 +52,37 @@ class _RegisterState extends State<Register> {
               children: <Widget>[
                 const SizedBox(height: 20.0),
                 TextFormField(
-                  // decoration:
-                  //     textInputDecoration.copyWith(hintText: 'Email'),
+                  decoration: const InputDecoration(
+                    labelText: 'Name',
+                    isDense: true,
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Enter your name';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onChanged: (val) {
+                    setState(() {
+                      name = val;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    isDense: true,
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
                   validator: (val) {
                     if (val!.isEmpty) {
                       return 'Enter an email';
@@ -68,8 +98,14 @@ class _RegisterState extends State<Register> {
                 ),
                 const SizedBox(height: 20.0),
                 TextFormField(
-                  // decoration:
-                  //     textInputDecoration.copyWith(hintText: 'Password'),
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    isDense: true,
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
                   obscureText: true,
                   validator: (val) => val!.length < 6
                       ? 'Enter a password 6 chars or long'
@@ -88,6 +124,7 @@ class _RegisterState extends State<Register> {
                         loading = true;
                       });
                       dynamic result = await _auth.registerWithEmailAndPassword(
+                        name,
                         email,
                         password,
                       );
@@ -105,7 +142,7 @@ class _RegisterState extends State<Register> {
                   ),
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.pink)),
+                          MaterialStateProperty.all<Color>(Colors.red)),
                 ),
                 const SizedBox(
                   height: 12.0,
