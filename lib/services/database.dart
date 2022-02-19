@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/models/announcement_model.dart';
 import 'package:padvisor/models/report_model.dart';
@@ -73,17 +77,38 @@ class DatabaseService {
     });
   }
 
-  //user data from snapshot
-  UserData _userDatafromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
-        uid: uid,
-        role: snapshot.get('role'),
-        cohort: snapshot.get('cohort'),
-        name: snapshot.get('name'));
-  }
+  // //user data from snapshot
+  // UserData _userDatafromSnapshot(DocumentSnapshot snapshot) {
+  //   return UserData(
+  //       uid: uid,
+  //       role: snapshot.get('role'),
+  //       cohort: snapshot.get('cohort'),
+  //       name: snapshot.get('name'));
+  // }
 
-  //get user doc stream
-  Stream<UserData> get userData {
-    return userCollection.doc(uid).snapshots().map(_userDatafromSnapshot);
+  // //get user doc stream
+  // Stream<UserData> get userData {
+  //   return userCollection.doc(uid).snapshots().map(_userDatafromSnapshot);
+  // }
+
+  Future uploadFileToFirebase(
+      String title, String desc, File? file, String uid) async {
+    var filename = DateTime.now().toString();
+    TaskSnapshot snapshot = await FirebaseStorage.instance
+        .ref()
+        .child("File/$filename")
+        .putFile(file!);
+
+    if (snapshot.state == TaskState.success) {
+      final String downloadUrl = await snapshot.ref.getDownloadURL();
+      await FirebaseFirestore.instance.collection("Reportdummy").add({
+        "url": downloadUrl,
+        "Title": title,
+        "Desc": desc,
+        "User": uid,
+      });
+    } else {
+      throw ('error');
+    }
   }
 }

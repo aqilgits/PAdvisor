@@ -3,6 +3,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padvisor/models/Users.dart';
+import 'package:padvisor/services/database.dart';
+import 'package:provider/provider.dart';
 
 class ReportForm extends StatefulWidget {
   const ReportForm({Key? key}) : super(key: key);
@@ -35,25 +38,9 @@ class _ReportFormState extends State<ReportForm> {
     }
   }
 
-  Future uploadFileToFirebase() async {
-    var filename = DateTime.now().toString();
-    TaskSnapshot snapshot =
-        await storage.ref().child("File/$filename").putFile(file!);
-
-    if (snapshot.state == TaskState.success) {
-      final String downloadUrl = await snapshot.ref.getDownloadURL();
-      await FirebaseFirestore.instance.collection("Report").add({
-        "url": downloadUrl,
-        "Title": title,
-        "Desc": desc,
-      });
-    } else {
-      throw ('error');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel?>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red[900],
@@ -177,7 +164,8 @@ class _ReportFormState extends State<ReportForm> {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () async {
-                    uploadFileToFirebase();
+                    DatabaseService(uid: user!.uid)
+                        .uploadFileToFirebase(title, desc, file, user.uid);
                     Navigator.pop(context);
                   },
                   child: const Text("Submit"))

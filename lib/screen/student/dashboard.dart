@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padvisor/loading.dart';
 import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class DashboardStudent extends StatefulWidget {
 
 class _DashboardStudentState extends State<DashboardStudent> {
   final Stream<QuerySnapshot> info =
-      FirebaseFirestore.instance.collection('Info').snapshots();
+      FirebaseFirestore.instance.collection('annoucement').snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<String>>.value(
@@ -58,8 +59,8 @@ class _DashboardStudentState extends State<DashboardStudent> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: Loading(),
                   );
                 }
                 final data = snapshot.requireData;

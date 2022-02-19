@@ -75,7 +75,7 @@ class _ListAnnouncementState extends State<ListAnnouncement> {
             itemCount: 6,
             itemBuilder: (context, index) {
               return Container(
-                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(20),
                 width: MediaQuery.of(context).size.width * 0.95,
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -106,7 +106,7 @@ class _ListAnnouncementState extends State<ListAnnouncement> {
                       ),
                       const SizedBox(height: 10.0),
                       const Text('lorem ipsum haha'),
-                      const SizedBox(height: 30.0),
+                      const SizedBox(height: 10.0),
                     ],
                   ),
                 ),
