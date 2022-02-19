@@ -15,7 +15,7 @@ class _ProblemDetailsState extends State<ProblemDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.red[900],
         title: const Text('Report'),
       ),
       body: Container(

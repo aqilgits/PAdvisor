@@ -91,11 +91,14 @@ class DatabaseService {
     return data;
   }
 
-  Future updateUserData(String role, String name, String cohort) async {
+  Future updateUserData(String name, String role, String cohort,
+      String phonenum, String advisorID) async {
     return await userCollection.doc(uid).set({
       'name': name,
       'role': role,
       'cohort': cohort,
+      'phone': phonenum,
+      'advisor': advisorID,
     });
   }
 

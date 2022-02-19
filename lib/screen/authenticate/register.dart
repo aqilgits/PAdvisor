@@ -10,6 +10,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  String _cohort = '';
+  final List<String> cohort = ["2019-2020", "2020-2021", "2021-2022"];
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -17,11 +19,14 @@ class _RegisterState extends State<Register> {
   //text field state
   String email = '';
   String name = '';
+  String advisorID = '';
+  String phonenum = '';
   String password = '';
   String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.red[900],
@@ -70,6 +75,76 @@ class _RegisterState extends State<Register> {
                   onChanged: (val) {
                     setState(() {
                       name = val;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20.0),
+                DropdownButton(
+                  hint: _cohort == null
+                      ? const Text('Cohort')
+                      : Text(
+                          _cohort,
+                        ),
+                  isExpanded: true,
+                  iconSize: 30.0,
+                  items: cohort.map(
+                    (val) {
+                      return DropdownMenuItem<String>(
+                        value: val,
+                        child: Text(val),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (val) {
+                    setState(
+                      () {
+                        _cohort = val as String;
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Phone number',
+                    isDense: true,
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Enter phone number';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onChanged: (val) {
+                    setState(() {
+                      phonenum = val;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Advisor ID',
+                    isDense: true,
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Enter advisor ID';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onChanged: (val) {
+                    setState(() {
+                      advisorID = val;
                     });
                   },
                 ),
@@ -127,6 +202,9 @@ class _RegisterState extends State<Register> {
                         name,
                         email,
                         password,
+                        _cohort,
+                        phonenum,
+                        advisorID,
                       );
                       if (result == null) {
                         setState(() {
