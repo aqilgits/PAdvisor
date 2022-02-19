@@ -8,6 +8,9 @@ import 'package:padvisor/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/models/report_model.dart';
+import 'package:padvisor/models/Users.dart';
+import 'package:padvisor/services/database.dart';
+import 'package:provider/provider.dart';
 
 class ReportForm extends StatefulWidget {
   const ReportForm({Key? key}) : super(key: key);
@@ -180,6 +183,8 @@ class _ReportFormState extends State<ReportForm> {
                         ReportModels(
                             title: title, desc: desc, url: downloadUrl),
                         AuthService().userID);
+                    DatabaseService(uid: user.uid)
+                        .uploadFileToFirebase(title, desc, file, user.uid);
                     Navigator.pop(context);
                   },
                   child: const Text("Submit"))
