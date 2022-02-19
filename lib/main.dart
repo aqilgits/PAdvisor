@@ -5,7 +5,6 @@ import 'package:padvisor/screen/student/studentWrapper.dart';
 import 'package:padvisor/screen/wrapper.dart';
 import 'package:padvisor/services/auth.dart';
 import 'package:provider/provider.dart';
-
 import 'models/Users.dart';
 
 void main() async {
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<UserModel?>.value(
       value: AuthService().user,
       initialData: null,
-      child: const MaterialApp(
+      child: MaterialApp(
         home: Wrapper(),
       ),
     );

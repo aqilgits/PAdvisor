@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/services/database.dart';
@@ -10,10 +10,10 @@ class AuthService {
   }
 
   Stream<UserModel?> get user {
-    return _auth
-        .authStateChanges()
-        .map((User? user) => _userFromFirebaseUser(user));
+    return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
+
+  get userID => _auth.currentUser?.uid;
 
   //sign in with email and pass
   Future singInWithEmailAndPassword(String email, String password) async {
@@ -49,7 +49,7 @@ class AuthService {
       );
       User? user = result.user;
       await DatabaseService(uid: user!.uid)
-          .updateUserData(name, 'student', '2019/2020');
+          .updateUserData(name, 'student', '2019-2020');
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

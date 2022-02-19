@@ -12,8 +12,9 @@ class Announcement extends StatefulWidget {
 
 class _AnnouncementState extends State<Announcement> {
   String _dropDownValue = '';
-  final List<String> cohort = ["19-20", "20-21", "21-22"];
+  final List<String> cohort = ["2019-2020", "2020-2021", "2021-2022"];
   String details = '';
+  String title = '';
   final db = DatabaseService.withoutUID();
   @override
   Widget build(BuildContext context) {
@@ -80,6 +81,40 @@ class _AnnouncementState extends State<Announcement> {
               Container(
                 alignment: Alignment.topLeft,
                 child: const Text(
+                  'Title',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  onChanged: (value) {
+                    title = value;
+                  },
+                  maxLines: 20,
+                  decoration: const InputDecoration.collapsed(
+                      hintText: "Enter your text here"),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                alignment: Alignment.topLeft,
+                child: const Text(
                   'Details',
                   style: TextStyle(fontSize: 20),
                 ),
@@ -118,9 +153,8 @@ class _AnnouncementState extends State<Announcement> {
                 ),
                 onPressed: () async {
                   await db.createAnnouncement(
-                    AnnouncementModels(
-                        details: details, cohort: _dropDownValue),
-                  );
+                      AnnouncementModels(details: details, title: title),
+                      _dropDownValue);
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),

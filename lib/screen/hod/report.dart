@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:padvisor/models/Users.dart';
+import 'package:padvisor/screen/authenticate/authenticate.dart';
+import 'package:padvisor/services/auth.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:padvisor/models/report_model.dart';
 import 'package:provider/provider.dart';
@@ -179,7 +181,8 @@ class _ReportState extends State<Report> {
                 onPressed: () async {
                   await uploadFileToFirebase();
                   await db.createReport(
-                      ReportModels(title: title, desc: desc, url: downloadUrl));
+                      ReportModels(title: title, desc: desc, url: downloadUrl),
+                      AuthService().userID);
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),

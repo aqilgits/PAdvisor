@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
+import 'package:padvisor/models/announcement_model.dart';
 import 'package:padvisor/screen/student/advisor.dart';
 import 'package:padvisor/screen/student/dashboard.dart';
 import 'package:padvisor/screen/student/report.dart';
 import 'package:padvisor/services/auth.dart';
 
 class StudentWrapper extends StatefulWidget {
-  StudentWrapper({Key? key}) : super(key: key);
+  StudentWrapper({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final Map<dynamic, dynamic> data;
 
   @override
   _StudentWrapperState createState() => _StudentWrapperState();
@@ -18,7 +24,7 @@ class _StudentWrapperState extends State<StudentWrapper> {
 
   @override
   void initState() {
-    _child = const DashboardStudent();
+    _child = DashboardStudent(data: widget.data);
     super.initState();
   }
 
@@ -64,6 +70,7 @@ class _StudentWrapperState extends State<StudentWrapper> {
         style: FluidNavBarStyle(
             iconUnselectedForegroundColor: Colors.red[900],
             barBackgroundColor: Colors.red[900]),
+        animationFactor: 0.5,
         scaleFactor: 1.5,
         defaultIndex: 1,
         itemBuilder: (icon, item) => Semantics(
@@ -82,7 +89,7 @@ class _StudentWrapperState extends State<StudentWrapper> {
             _child = const Report();
             break;
           case 1:
-            _child = const DashboardStudent();
+            _child = DashboardStudent(data: widget.data);
             break;
           case 2:
             _child = const Advisor();

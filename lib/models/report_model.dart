@@ -9,8 +9,8 @@ class ReportModels {
 
   factory ReportModels.fromFireStore(DocumentSnapshot doc) {
     return ReportModels(
-      title: doc['title'],
-      desc: doc['desc'],
+      title: doc['Title'],
+      desc: doc['Desc'],
       url: doc['url'],
     );
   }

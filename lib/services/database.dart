@@ -14,12 +14,15 @@ class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 //create Announcement
-  Future<bool> createAnnouncement(AnnouncementModels a) async {
+  Future<bool> createAnnouncement(AnnouncementModels a, String cohort) async {
     try {
-      await _db.collection("Announcement").add({
-        "cohort": a.cohort,
-        "details": a.details,
-      });
+      await _db
+          .collection("Cohort")
+          .doc(cohort)
+          .collection("Announcement")
+          .doc(a.title)
+          .set({"title": a.title, "desc": a.details});
+
       return true;
     } catch (e) {
       print(e);
@@ -28,15 +31,32 @@ class DatabaseService {
   }
 
 //stream announcement
+  Stream<List<AnnouncementModels>> streamAnnouncement(String cohort) {
+    dynamic data;
+    try {
+      data = _db
+          .collection("Cohort")
+          .doc(cohort)
+          .collection("Announcement")
+          .snapshots()
+          .map((list) => list.docs
+              .map((announcement) =>
+                  AnnouncementModels.fromFireStore(announcement))
+              .toList());
+    } catch (e) {
+      print(e.toString());
+    }
+    return data;
+  }
 
 //create report
-  Future<bool> createReport(ReportModels a) async {
+  Future<bool> createReport(ReportModels a, String userID) async {
     try {
       await _db
           .collection("Report")
-          .doc("9yyC6nX8QbR299ylbVCx")
+          .doc(userID)
           .collection("Problems")
-          .doc(DateTime.now().microsecondsSinceEpoch.toString())
+          .doc(a.title)
           .set({
         "url": a.url,
         "Title": a.title,
@@ -50,15 +70,17 @@ class DatabaseService {
   }
 
 //stream report
-  Stream<List<String>> streamReport() {
+  Stream<List<ReportModels>> streamReport(String userID) {
     dynamic data;
     try {
       data = _db
           .collection("Report")
-          .doc("9yyC6nX8QbR299ylbVCx")
+          .doc(userID)
           .collection("Problems")
           .snapshots()
-          .map((list) => list.docs.map((problems) => problems.id).toList());
+          .map((list) => list.docs
+              .map((problems) => ReportModels.fromFireStore(problems))
+              .toList());
     } catch (e) {
       print(e.toString());
     }

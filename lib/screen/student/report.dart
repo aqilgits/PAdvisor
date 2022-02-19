@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:padvisor/models/Users.dart';
+import 'package:padvisor/models/report_model.dart';
+import 'package:padvisor/screen/student/problem_details.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:padvisor/screen/student/reportForm.dart';
 import 'package:provider/provider.dart';
+import 'package:padvisor/services/auth.dart';
 
 class Report extends StatefulWidget {
   const Report({Key? key}) : super(key: key);
@@ -13,15 +16,17 @@ class Report extends StatefulWidget {
 }
 
 class _ReportState extends State<Report> {
-  final Stream<QuerySnapshot> report =
-      FirebaseFirestore.instance.collection('Report').snapshots();
+  // final Stream<QuerySnapshot> report =
+  // FirebaseFirestore.instance.collection('Report').snapshots();
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel?>(context);
 
-    return StreamProvider<List<String>>.value(
+    return StreamProvider<List<ReportModels>>.value(
+        value:
+            DatabaseService(uid: user!.uid).streamReport(AuthService().userID),
+        catchError: (_, __) => [],
         initialData: [],
-        value: DatabaseService(uid: user!.uid).streamReport(),
         builder: (context, child) {
           return Container(
             child: Column(
@@ -84,16 +89,17 @@ class _ReportState extends State<Report> {
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: Provider.of<List<String>>(context).length,
+                  itemCount: Provider.of<List<ReportModels>>(context).length,
                   itemBuilder: (context, index) {
-                    String problems =
-                        Provider.of<List<String>>(context).elementAt(index);
+                    ReportModels problems =
+                        Provider.of<List<ReportModels>>(context)
+                            .elementAt(index);
                     return Card(
                       color: Colors.red[900],
                       margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
                       child: ListTile(
                         title: Text(
-                          problems,
+                          problems.title,
                           style: TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
@@ -101,7 +107,13 @@ class _ReportState extends State<Report> {
                           style: TextStyle(color: Colors.white),
                         ),
                         onTap: () {
-                          print("clicked");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProblemDetails(
+                                  title: problems.title, desc: problems.desc),
+                            ),
+                          );
                         },
                       ),
                     );
