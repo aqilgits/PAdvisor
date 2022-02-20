@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 import 'package:padvisor/models/Users.dart';
 
 class ListReport extends StatefulWidget {
-  
-  const ListReport({Key? key,}) : super(key: key);
+  const ListReport({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ListReportState createState() => _ListReportState();
@@ -23,8 +24,8 @@ class _ListReportState extends State<ListReport> {
     final user = Provider.of<UserModel?>(context);
 
     return StreamProvider<List<ReportModels>>.value(
-        value:
-            DatabaseService(uid: user!.uid).streamReport(AuthService().userID),
+        value: DatabaseService.withoutUID()
+            .streamReport(AuthService().userID),
         catchError: (_, __) => [],
         initialData: [],
         builder: (context, child) {

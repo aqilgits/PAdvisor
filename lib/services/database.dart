@@ -104,20 +104,14 @@ class DatabaseService {
 
 //stream report
   Stream<List<ReportModels>> streamReport(String userID) {
-    dynamic data;
-    try {
-      data = _db
-          .collection("Report")
-          .doc(userID)
-          .collection("Problems")
-          .snapshots()
-          .map((list) => list.docs
-              .map((problems) => ReportModels.fromFireStore(problems))
-              .toList());
-    } catch (e) {
-      print(e.toString());
-    }
-    return data;
+    return _db
+        .collection("Report")
+        .doc(userID)
+        .collection("Problems")
+        .snapshots()
+        .map((list) => list.docs
+            .map((problems) => ReportModels.fromFireStore(problems))
+            .toList());
   }
 
 //retrive advisor
@@ -199,6 +193,8 @@ class DatabaseService {
     }
     return data;
   }
+
+  
 //------------------------------------------------------------------------------//
   // //user data from snapshot
   // UserData _userDatafromSnapshot(DocumentSnapshot snapshot) {

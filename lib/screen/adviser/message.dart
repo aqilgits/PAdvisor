@@ -34,7 +34,9 @@ class _MessageState extends State<Message> {
             padding: EdgeInsets.only(right: 20),
             child: GestureDetector(
               onTap: () async {
-                await db.archive(widget.id, true);
+                await db.archive(widget.id, true).whenComplete(() {
+                  setState(() {});
+                });
                 Navigator.pop(context);
               },
               child:
