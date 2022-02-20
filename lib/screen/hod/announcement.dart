@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:padvisor/models/announcement_model.dart';
+import 'package:padvisor/services/database.dart';
 
 class Announcement extends StatefulWidget {
   const Announcement({Key? key}) : super(key: key);
@@ -8,8 +10,11 @@ class Announcement extends StatefulWidget {
 }
 
 class _AnnouncementState extends State<Announcement> {
-  var _dropDownValue;
+  String _dropDownValue = '';
+  final List<String> cohort = ["2019-2020", "2020-2021", "2021-2022", "All"];
   String details = '';
+  String title = '';
+  final db = DatabaseService.withoutUID();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +59,7 @@ class _AnnouncementState extends State<Announcement> {
                         ),
                   isExpanded: true,
                   iconSize: 30.0,
-                  items: ['19/20', '20/21', '21/22'].map(
+                  items: cohort.map(
                     (val) {
                       return DropdownMenuItem<String>(
                         value: val,
@@ -65,10 +70,44 @@ class _AnnouncementState extends State<Announcement> {
                   onChanged: (val) {
                     setState(
                       () {
-                        _dropDownValue = val;
+                        _dropDownValue = val as String;
                       },
                     );
                   },
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                alignment: Alignment.topLeft,
+                child: const Text(
+                  'Title',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  onChanged: (value) {
+                    title = value;
+                  },
+                  maxLines: 2,
+                  decoration: const InputDecoration.collapsed(
+                      hintText: "Enter your text here"),
                 ),
               ),
               const SizedBox(height: 20),
@@ -112,6 +151,9 @@ class _AnnouncementState extends State<Announcement> {
                   padding: const EdgeInsets.all(10),
                 ),
                 onPressed: () async {
+                  await db.createAnnouncement(
+                      AnnouncementModels(details: details, title: title),
+                      _dropDownValue);
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),

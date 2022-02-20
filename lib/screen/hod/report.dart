@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:padvisor/loading.dart';
 import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/screen/authenticate/authenticate.dart';
 import 'package:padvisor/services/auth.dart';
@@ -22,6 +24,11 @@ class _ReportState extends State<Report> {
   File? file;
   String downloadUrl = '';
   var storage = FirebaseStorage.instance;
+  var advisor;
+  var setDefaultMake = true, setDefaultMakeModel = true;
+  void initState() {
+    super.initState();
+  }
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -180,9 +187,10 @@ class _ReportState extends State<Report> {
                 ),
                 onPressed: () async {
                   await uploadFileToFirebase();
-                  // await db.createReport(
-                  //     ReportModels(title: title, desc: desc, url: downloadUrl),
-                  //     AuthService().userID);
+                  await db.createReport(
+                      ReportModels(title: title, desc: desc, url: downloadUrl),
+                      AuthService().userID,
+                      "0");
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),
