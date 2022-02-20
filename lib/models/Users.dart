@@ -14,8 +14,7 @@ class Student {
   final String advisorID;
 
   Student(
-      {
-      required this.role,
+      {required this.role,
       required this.name,
       required this.cohort,
       required this.phonenum,
@@ -26,7 +25,7 @@ class Student {
         role: doc['role'],
         name: doc['name'],
         cohort: doc['cohort'],
-        phonenum: doc['phonenum'],
-        advisorID: doc['advisorid']);
+        phonenum: doc['phone'],
+        advisorID: doc['advisor']);
   }
 }

@@ -109,6 +109,22 @@ class DatabaseService {
     return data;
   }
 
+  Future<List<String>> getAdvisorCohorts(String id) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> data =
+          await _db.collection('Advisor').doc(id).get();
+      List<dynamic> datas = data['cohorts'];
+      List<String> cohorts = [];
+      for (var element in datas) {
+        cohorts.add(element.toString());
+      }
+      return cohorts;
+    } catch (e) {
+      print('error');
+      return [];
+    }
+  }
+
   Future updateUserData(Student a) async {
     dynamic data;
     try {
@@ -134,16 +150,16 @@ class DatabaseService {
   }
 
 //retrive student
-  Stream<List<Student>> streamStudent() {
-    dynamic data;
-    try {
-      data = _db.collection('Student').snapshots().map((list) => list.docs
-          .map((students) => Student.fromFireStrore(students))
-          .toList());
-    } catch (e) {
-      print(e.toString());
-    }
-    return data;
+  Future<List<Student>> streamStudent(String advisorId) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await _db
+        .collection('Student')
+        .where('advisor', isEqualTo: advisorId)
+        .get();
+
+    List<Student> students =
+        snapshot.docs.map((doc) => Student.fromFireStrore(doc)).toList();
+
+    return students;
   }
 
 //------------------------------------------------------------------------------//
