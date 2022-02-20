@@ -163,6 +163,7 @@ class DatabaseService {
         'cohort': a.cohort,
         'phone': a.phonenum,
         'advisor': a.advisorID,
+        'archive': a.archive,
       });
     } catch (e) {
       print(e.toString());

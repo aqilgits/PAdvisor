@@ -39,12 +39,35 @@ class _ListAnnouncementState extends State<ListAnnouncement> {
                   alignment: Alignment.centerLeft,
                   height: 50,
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: const Text(
-                    "Annoucement",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Announcement",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            primary: Colors.red[900],
+                            shadowColor: Colors.red[900]),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Announcement(),
+                            ),
+                          );
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
                   ),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
