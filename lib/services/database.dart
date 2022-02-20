@@ -141,10 +141,6 @@ class DatabaseService {
       DocumentSnapshot<Map<String, dynamic>> data =
           await _db.collection('Student').doc(id).get();
       String datas = data['advisor'];
-      // List<String> cohorts = [];
-      // for (var element in datas) {
-      //   cohorts.add(element.toString());
-      // }
       return datas;
     } catch (e) {
       print('error');
@@ -177,10 +173,11 @@ class DatabaseService {
   }
 
 //retrive student
-  Future<List<Student>> streamStudent(String advisorId) async {
+  Future<List<Student>> streamStudent(String advisorId, String cohort) async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await _db
         .collection('Student')
         .where('advisor', isEqualTo: advisorId)
+        .where('cohort', isEqualTo: cohort)
         .get();
 
     List<Student> students =

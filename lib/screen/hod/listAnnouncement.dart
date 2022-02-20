@@ -40,6 +40,7 @@ class _ListAnnouncementState extends State<ListAnnouncement> {
                   height: 50,
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
                         "Annoucement",

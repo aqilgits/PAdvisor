@@ -77,12 +77,13 @@ class _ListStudentState extends State<ListStudent> {
                               padding: EdgeInsets.all(0),
                               child: FutureBuilder(
                                   future: DatabaseService.withoutUID()
-                                      .streamStudent(AuthService().userID),
+                                      .streamStudent(
+                                          AuthService().userID, cohorts[index]),
                                   builder: (context,
                                       AsyncSnapshot<List<Student>> snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return Loading();
+                                      return Container();
                                     } else {
                                       List<Student>? students = snapshot.data;
 
