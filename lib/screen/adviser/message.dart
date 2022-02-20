@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:padvisor/screen/adviser/archive.dart';
+import 'package:padvisor/services/auth.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:padvisor/services/database.dart';
 
 class Message extends StatefulWidget {
   final String name;
   final String matric;
   final String cohort;
+  final String id;
   const Message(
       {Key? key,
       required this.cohort,
       required this.matric,
-      required this.name})
+      required this.name,
+      required this.id})
       : super(key: key);
 
   @override
@@ -17,6 +22,7 @@ class Message extends StatefulWidget {
 }
 
 class _MessageState extends State<Message> {
+  final db = DatabaseService(uid: AuthService().userID);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +33,10 @@ class _MessageState extends State<Message> {
           Padding(
             padding: EdgeInsets.only(right: 20),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                await db.archive(widget.id, true);
+                Navigator.pop(context);
+              },
               child:
                   Icon(Icons.archive_outlined, size: 26, color: Colors.white),
             ),

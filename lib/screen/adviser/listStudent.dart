@@ -95,6 +95,9 @@ class _ListStudentState extends State<ListStudent> {
                                           itemCount: students!.length,
                                           itemBuilder: (context, index) {
                                             Student student = students[index];
+                                            if (student.archive == true) {
+                                              return SizedBox.shrink();
+                                            }
                                             return Column(children: [
                                               Container(
                                                 padding: EdgeInsets.fromLTRB(
@@ -128,6 +131,8 @@ class _ListStudentState extends State<ListStudent> {
                                                                             student.phonenum,
                                                                         cohort:
                                                                             student.cohort,
+                                                                        id: student
+                                                                            .id,
                                                                       )));
                                                     },
                                                   ),

@@ -154,6 +154,7 @@ class DatabaseService {
     }
   }
 
+//add student
   Future updateUserData(Student a) async {
     dynamic data;
     try {
@@ -185,12 +186,23 @@ class DatabaseService {
         .where('advisor', isEqualTo: advisorId)
         .where('cohort', isEqualTo: cohort)
         .get();
-    List<Student> students =
-        snapshot.docs.map((doc) => Student.fromFireStrore(doc)).toList();
+    List<Student> students = snapshot.docs
+        .map((doc) => Student.fromFireStrore(doc, userId: doc.id))
+        .toList();
 
     return students;
   }
 
+//archieve
+  Future<void> archive(String id, bool archive) async {
+    dynamic data;
+    try {
+      data = _db.collection('Student').doc(id).update({'archive': archive});
+    } catch (e) {
+      print(e.toString());
+    }
+    return data;
+  }
 //------------------------------------------------------------------------------//
   // //user data from snapshot
   // UserData _userDatafromSnapshot(DocumentSnapshot snapshot) {
