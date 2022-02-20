@@ -46,11 +46,11 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
       bottomNavigationBar: FluidNavBar(
         icons: [
           FluidNavBarIcon(
-              icon: Icons.home,
+              icon: Icons.wysiwyg_outlined,
               backgroundColor: Colors.grey[200],
               extras: {"label": "home"}),
           FluidNavBarIcon(
-              icon: Icons.wysiwyg_outlined,
+              icon: Icons.home,
               backgroundColor: Colors.grey[200],
               extras: {"label": "notice"}),
           FluidNavBarIcon(
@@ -64,7 +64,7 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
             barBackgroundColor: Colors.red[900]),
         animationFactor: 0.5,
         scaleFactor: 1.5,
-        defaultIndex: 0,
+        defaultIndex: 1,
         itemBuilder: (icon, item) => Semantics(
           label: icon.extras!["label"],
           child: item,
@@ -77,10 +77,10 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
     setState(() {
       switch (index) {
         case 0:
-          _child = const ListAnnouncement();
+          _child = const ListReport();
           break;
         case 1:
-          _child = const ListReport();
+          _child = const ListAnnouncement();
           break;
         case 2:
           _child = const ListStudent();
