@@ -180,9 +180,9 @@ class _ReportState extends State<Report> {
                 ),
                 onPressed: () async {
                   await uploadFileToFirebase();
-                  await db.createReport(
-                      ReportModels(title: title, desc: desc, url: downloadUrl),
-                      AuthService().userID);
+                  // await db.createReport(
+                  //     ReportModels(title: title, desc: desc, url: downloadUrl),
+                  //     AuthService().userID);
                   Navigator.pop(context);
                 },
                 child: const Text("Submit"),

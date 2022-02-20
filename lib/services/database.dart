@@ -72,11 +72,22 @@ class DatabaseService {
   }
 
 //create report
-  Future<bool> createReport(ReportModels a, String userID) async {
+  Future<bool> createReport(
+      ReportModels a, String userID, String advisorID) async {
     try {
       await _db
           .collection("Report")
           .doc(userID)
+          .collection("Problems")
+          .doc(a.title)
+          .set({
+        "url": a.url,
+        "Title": a.title,
+        "Desc": a.desc,
+      });
+      await _db
+          .collection("Report")
+          .doc(advisorID)
           .collection("Problems")
           .doc(a.title)
           .set({
@@ -122,6 +133,22 @@ class DatabaseService {
     } catch (e) {
       print('error');
       return [];
+    }
+  }
+
+  Future<String> getAdvisorUid(String id) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> data =
+          await _db.collection('Student').doc(id).get();
+      String datas = data['advisor'];
+      // List<String> cohorts = [];
+      // for (var element in datas) {
+      //   cohorts.add(element.toString());
+      // }
+      return datas;
+    } catch (e) {
+      print('error');
+      return '0';
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padvisor/loading.dart';
 import 'package:padvisor/services/auth.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:provider/provider.dart';
@@ -60,135 +61,147 @@ class _ReportFormState extends State<ReportForm> {
         backgroundColor: Colors.red[900],
         title: const Text("New Report"),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  "Title",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  onChanged: (value) {
-                    title = value;
-                  },
-                  maxLines: 2,
-                  decoration: const InputDecoration.collapsed(
-                      hintText: "Enter your description here"),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  "Description",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  onChanged: (value) {
-                    desc = value;
-                  },
-                  maxLines: 20,
-                  decoration: const InputDecoration.collapsed(
-                      hintText: "Enter your text here"),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  "Attachment",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
+      body: FutureBuilder(
+        future: DatabaseService(uid: AuthService().userID)
+            .getAdvisorUid(AuthService().userID),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Loading();
+          } else {
+            String advisorID = snapshot.data as String;
+            return SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(15),
                 child: Column(
                   children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red[900],
-                      ),
-                      onPressed: () {
-                        selectFile();
-                      },
-                      child: const Icon(Icons.upload_file),
-                    ),
                     Container(
-                      child: fileindicator(),
-                    )
+                      alignment: Alignment.topLeft,
+                      child: const Text(
+                        "Title",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        onChanged: (value) {
+                          title = value;
+                        },
+                        maxLines: 2,
+                        decoration: const InputDecoration.collapsed(
+                            hintText: "Enter your description here"),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: const Text(
+                        "Description",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        onChanged: (value) {
+                          desc = value;
+                        },
+                        maxLines: 20,
+                        decoration: const InputDecoration.collapsed(
+                            hintText: "Enter your text here"),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: const Text(
+                        "Attachment",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.red[900],
+                            ),
+                            onPressed: () {
+                              selectFile();
+                            },
+                            child: const Icon(Icons.upload_file),
+                          ),
+                          Container(
+                            child: fileindicator(),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                        onPressed: () async {
+                          await uploadFileToFirebase();
+                          await db.createReport(
+                              ReportModels(
+                                  title: title, desc: desc, url: downloadUrl),
+                              AuthService().userID,
+                              advisorID);
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Submit"))
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: () async {
-                    await uploadFileToFirebase();
-                    await db.createReport(
-                        ReportModels(
-                            title: title, desc: desc, url: downloadUrl),
-                        AuthService().userID);
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Submit"))
-            ],
-          ),
-        ),
+            );
+          }
+        },
       ),
     );
   }
