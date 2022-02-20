@@ -24,8 +24,7 @@ class _ListReportState extends State<ListReport> {
     final user = Provider.of<UserModel?>(context);
 
     return StreamProvider<List<ReportModels>>.value(
-        value: DatabaseService.withoutUID()
-            .streamReport(AuthService().userID),
+        value: DatabaseService.withoutUID().streamReport(AuthService().userID),
         catchError: (_, __) => [],
         initialData: [],
         builder: (context, child) {
@@ -86,7 +85,7 @@ class _ListReportState extends State<ListReport> {
                           style: TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
-                          'Status',
+                          '',
                           style: TextStyle(color: Colors.white),
                         ),
                         onTap: () {

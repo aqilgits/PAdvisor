@@ -35,14 +35,16 @@ class _HodWrapperState extends State<HodWrapper> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
+          TextButton.icon(
             onPressed: () async {
               await _auth.signOut();
             },
-            icon: const Icon(Icons.account_circle_outlined),
-            color: Colors.white,
-            iconSize: 40,
-          )
+            icon: const Icon(Icons.person),
+            label: const Text('logout'),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+            ),
+          ),
         ],
       ),
       body: _child,

@@ -103,7 +103,7 @@ class _ReportState extends State<Report> {
                           style: TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
-                          'Status',
+                          '',
                           style: TextStyle(color: Colors.white),
                         ),
                         onTap: () {

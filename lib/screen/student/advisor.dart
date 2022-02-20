@@ -85,7 +85,7 @@ class _AdvisorState extends State<Advisor> {
                                   ),
                                 ),
                                 child: const Text(
-                                  'Ng Keng Yap',
+                                  'Aqil',
                                   style: TextStyle(
                                     fontSize: 30,
                                     color: Colors.white,
@@ -102,7 +102,7 @@ class _AdvisorState extends State<Advisor> {
                           children: const <Widget>[
                             SizedBox(height: 10),
                             Text(
-                              'Room Number',
+                              'A-1-LW21',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
@@ -110,7 +110,7 @@ class _AdvisorState extends State<Advisor> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              'Department',
+                              'software engineering',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
@@ -118,7 +118,7 @@ class _AdvisorState extends State<Advisor> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              'Email',
+                              'Aqil',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
@@ -126,7 +126,7 @@ class _AdvisorState extends State<Advisor> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              'Phone Number',
+                              '0168574665',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,

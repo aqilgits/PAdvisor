@@ -37,14 +37,16 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
+          TextButton.icon(
             onPressed: () async {
               await _auth.signOut();
             },
-            icon: const Icon(Icons.account_circle_outlined),
-            color: Colors.white,
-            iconSize: 40,
-          )
+            icon: const Icon(Icons.person),
+            label: const Text('logout'),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+            ),
+          ),
         ],
       ),
       body: _child,
@@ -82,7 +84,7 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
     setState(() {
       switch (index) {
         case 0:
-          _child =  ListReport();
+          _child = ListReport();
           break;
         case 1:
           _child = ListAnnouncement(

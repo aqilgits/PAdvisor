@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ViewReport extends StatefulWidget {
-  const ViewReport({Key? key}) : super(key: key);
+  final String title;
+  final String desc;
+  const ViewReport({Key? key, required this.desc, required this.title})
+      : super(key: key);
 
   @override
   _ViewReportState createState() => _ViewReportState();
@@ -16,9 +19,8 @@ class _ViewReportState extends State<ViewReport> {
         title: const Text('Report'),
       ),
       body: Container(
-        padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-        alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(10),
+        width: MediaQuery.of(context).size.width * 0.95,
         decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10.0),
@@ -34,20 +36,19 @@ class _ViewReportState extends State<ViewReport> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Colors.black, width: 2.0),
                   ),
                 ),
                 alignment: Alignment.topLeft,
-                child: const Text(
-                  'Title',
+                child: Text(
+                  widget.title,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                 ),
               ),
               const SizedBox(height: 10.0),
-              const Text('lorem ipsum haha'),
+              Text(widget.desc),
               const SizedBox(height: 30.0),
             ],
           ),
