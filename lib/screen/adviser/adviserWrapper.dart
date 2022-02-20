@@ -82,7 +82,7 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
     setState(() {
       switch (index) {
         case 0:
-          _child = const ListReport();
+          _child =  ListReport();
           break;
         case 1:
           _child = ListAnnouncement(

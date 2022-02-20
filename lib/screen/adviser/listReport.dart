@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:padvisor/models/Users.dart';
 
 class ListReport extends StatefulWidget {
-  const ListReport({Key? key}) : super(key: key);
+  
+  const ListReport({Key? key,}) : super(key: key);
 
   @override
   _ListReportState createState() => _ListReportState();

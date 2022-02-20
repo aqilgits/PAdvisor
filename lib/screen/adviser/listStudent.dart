@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padvisor/loading.dart';
 import 'package:padvisor/screen/adviser/archive.dart';
+import 'package:padvisor/screen/adviser/message.dart';
 import 'package:padvisor/services/auth.dart';
 import 'package:padvisor/services/database.dart';
 import 'package:provider/provider.dart';
@@ -113,7 +114,21 @@ class _ListStudentState extends State<ListStudent> {
                                                       style: TextStyle(
                                                           color: Colors.white),
                                                     ),
-                                                    onTap: () {},
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      Message(
+                                                                        name: student
+                                                                            .name,
+                                                                        matric:
+                                                                            student.phonenum,
+                                                                        cohort:
+                                                                            student.cohort,
+                                                                      )));
+                                                    },
                                                   ),
                                                 ),
                                               )

@@ -1,6 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.padvisor">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <queries>
+        <!-- If your app opens https URLs -->
+        <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="https" />
+        </intent>
+      
+        <!-- If your app sends emails -->
+        <intent>
+          <action android:name="android.intent.action.SEND" />
+          <data android:mimeType="*/*" />
+        </intent>
+      </queries>
    <application
         android:label="padvisor"
         android:name="${applicationName}"
