@@ -12,7 +12,7 @@ class Announcement extends StatefulWidget {
 
 class _AnnouncementState extends State<Announcement> {
   String _dropDownValue = '';
-  final List<String> cohort = ["2019-2020", "2020-2021", "2021-2022"];
+  final List<String> cohort = ["2019-2020", "2020-2021", "2021-2022", "All"];
   String details = '';
   String title = '';
   final db = DatabaseService.withoutUID();

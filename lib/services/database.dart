@@ -14,20 +14,37 @@ class DatabaseService {
   DatabaseService.withoutUID() : uid = "";
 
   //collection reference
-  final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('User');
+  // final CollectionReference userCollection =
+  //     FirebaseFirestore.instance.collection('User');
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 //create Announcement
   Future<bool> createAnnouncement(AnnouncementModels a, String cohort) async {
+    List cohortList = ["2019-2020", "2020-2021", "2021-2022"];
     try {
       await _db
           .collection("Cohort")
-          .doc(cohort)
+          .doc('all')
           .collection("Announcement")
           .doc(a.title)
           .set({"title": a.title, "desc": a.details});
-
+      if (cohort == 'all' || cohort == 'All') {
+        for (var i = 0; i < cohortList.length; i++) {
+          await _db
+              .collection("Cohort")
+              .doc(cohortList[i])
+              .collection("Announcement")
+              .doc(a.title)
+              .set({"title": a.title, "desc": a.details});
+        }
+      } else {
+        await _db
+            .collection("Cohort")
+            .doc(cohort)
+            .collection("Announcement")
+            .doc(a.title)
+            .set({"title": a.title, "desc": a.details});
+      }
       return true;
     } catch (e) {
       print(e);
@@ -95,13 +112,13 @@ class DatabaseService {
   Future updateUserData(Student a) async {
     dynamic data;
     try {
-      data = userCollection.doc(uid).set({
-        'name': a.name,
-        'role': a.role,
-        'cohort': a.cohort,
-        'phone': a.phonenum,
-        'advisor': a.advisorID,
-      });
+      // data = userCollection.doc(uid).set({
+      //   'name': a.name,
+      //   'role': a.role,
+      //   'cohort': a.cohort,
+      //   'phone': a.phonenum,
+      //   'advisor': a.advisorID,
+      // });
 
       data = _db.collection('Student').doc(uid).set({
         'name': a.name,
