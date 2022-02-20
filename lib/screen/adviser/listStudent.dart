@@ -53,7 +53,9 @@ class _ListStudentState extends State<ListStudent> {
                                 MaterialPageRoute(
                                   builder: (context) => Archive(),
                                 ),
-                              );
+                              ).whenComplete(() {
+                                setState(() {});
+                              });
                             },
                           ),
                         ),
@@ -120,20 +122,22 @@ class _ListStudentState extends State<ListStudent> {
                                                     ),
                                                     onTap: () {
                                                       Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      Message(
-                                                                        name: student
-                                                                            .name,
-                                                                        phone: student
-                                                                            .phonenum,
-                                                                        cohort:
-                                                                            student.cohort,
-                                                                        id: student
-                                                                            .id,
-                                                                      )));
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          Message(
+                                                                            name:
+                                                                                student.name,
+                                                                            phone:
+                                                                                student.phonenum,
+                                                                            cohort:
+                                                                                student.cohort,
+                                                                            id: student.id,
+                                                                          )))
+                                                          .whenComplete(() {
+                                                        setState(() {});
+                                                      });
                                                     },
                                                   ),
                                                 ),
