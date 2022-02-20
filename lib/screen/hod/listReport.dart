@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/screen/hod/report.dart';
 import 'package:padvisor/screen/hod/viewReport.dart';
+import 'package:padvisor/screen/student/problem_details.dart';
 import 'package:padvisor/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:padvisor/services/database.dart';
@@ -18,13 +19,14 @@ class _ListReportState extends State<ListReport> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel?>(context);
+
     return StreamProvider<List<ReportModels>>.value(
         value:
             DatabaseService(uid: user!.uid).streamReport(AuthService().userID),
         catchError: (_, __) => [],
         initialData: [],
         builder: (context, child) {
-          return SingleChildScrollView(
+          return Container(
             child: Column(
               children: [
                 Container(
@@ -80,21 +82,22 @@ class _ListReportState extends State<ListReport> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15.0),
+                const SizedBox(height: 20.0),
                 ListView.builder(
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: Provider.of<List<String>>(context).length,
+                  itemCount: Provider.of<List<ReportModels>>(context).length,
                   itemBuilder: (context, index) {
-                    String problems =
-                        Provider.of<List<String>>(context).elementAt(index);
+                    ReportModels problems =
+                        Provider.of<List<ReportModels>>(context)
+                            .elementAt(index);
                     return Card(
                       color: Colors.red[900],
                       margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
                       child: ListTile(
                         title: Text(
-                          problems,
+                          problems.title,
                           style: TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
@@ -105,7 +108,8 @@ class _ListReportState extends State<ListReport> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ViewReport(),
+                              builder: (context) => ProblemDetails(
+                                  title: problems.title, desc: problems.desc),
                             ),
                           );
                         },

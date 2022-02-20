@@ -5,8 +5,12 @@ import 'package:padvisor/screen/hod/listReport.dart';
 import 'package:padvisor/services/auth.dart';
 
 class HodWrapper extends StatefulWidget {
-  const HodWrapper({Key? key}) : super(key: key);
+  const HodWrapper({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
+  final Map<dynamic, dynamic> data;
   @override
   _HodWrapperState createState() => _HodWrapperState();
 }
@@ -17,7 +21,7 @@ class _HodWrapperState extends State<HodWrapper> {
 
   @override
   void initState() {
-    _child = const ListAnnouncement();
+    _child = ListAnnouncement(data: widget.data);
     super.initState();
   }
 
@@ -72,7 +76,7 @@ class _HodWrapperState extends State<HodWrapper> {
     setState(() {
       switch (index) {
         case 0:
-          _child = const ListAnnouncement();
+          _child = ListAnnouncement(data: widget.data);
           break;
         case 1:
           _child = const ListReport();
