@@ -23,6 +23,16 @@ class _MessageState extends State<Message> {
       appBar: AppBar(
         backgroundColor: Colors.red[900],
         title: const Text('Message'),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: () {},
+              child:
+                  Icon(Icons.archive_outlined, size: 26, color: Colors.white),
+            ),
+          ),
+        ],
       ),
       body: Container(
         child: Padding(
@@ -105,5 +115,4 @@ class _MessageState extends State<Message> {
           .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
     }
   }
-  
 }

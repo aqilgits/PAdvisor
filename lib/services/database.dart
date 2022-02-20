@@ -120,6 +120,7 @@ class DatabaseService {
     return data;
   }
 
+//retrive advisor
   Future<List<String>> getAdvisorCohorts(String id) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> data =
@@ -136,6 +137,7 @@ class DatabaseService {
     }
   }
 
+//retrive advisorstudent
   Future<String> getAdvisorUid(String id) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> data =
@@ -177,12 +179,12 @@ class DatabaseService {
   }
 
 //retrive student
-  Future<List<Student>> streamStudent(String advisorId) async {
+  Future<List<Student>> streamStudent(String advisorId, String cohort) async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await _db
         .collection('Student')
         .where('advisor', isEqualTo: advisorId)
+        .where('cohort', isEqualTo: cohort)
         .get();
-
     List<Student> students =
         snapshot.docs.map((doc) => Student.fromFireStrore(doc)).toList();
 

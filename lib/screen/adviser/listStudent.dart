@@ -64,20 +64,21 @@ class _ListStudentState extends State<ListStudent> {
                       physics: const ClampingScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: cohorts!.length,
+                      itemCount: cohorts?.length,
                       itemBuilder: (context, index) {
                         return Container(
                           padding: EdgeInsets.all(15),
                           child: Column(children: [
                             Container(
                               alignment: Alignment.topLeft,
-                              child: Text(cohorts[index]),
+                              child: Text(cohorts![index]),
                             ),
                             Container(
                               padding: EdgeInsets.all(0),
                               child: FutureBuilder(
                                   future: DatabaseService.withoutUID()
-                                      .streamStudent(AuthService().userID),
+                                      .streamStudent(
+                                          AuthService().userID, cohorts[index]),
                                   builder: (context,
                                       AsyncSnapshot<List<Student>> snapshot) {
                                     if (snapshot.connectionState ==
