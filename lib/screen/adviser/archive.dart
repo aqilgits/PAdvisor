@@ -26,7 +26,7 @@ class _ArchiveState extends State<Archive> {
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.red[900],
-                title: const Text('Garduate'),
+                title: const Text('Graduate'),
               ),
               body: ListView.builder(
                 physics: const ClampingScrollPhysics(),

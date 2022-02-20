@@ -6,13 +6,13 @@ import 'package:padvisor/services/database.dart';
 
 class Message extends StatefulWidget {
   final String name;
-  final String matric;
+  final String phone;
   final String cohort;
   final String id;
   const Message(
       {Key? key,
       required this.cohort,
-      required this.matric,
+      required this.phone,
       required this.name,
       required this.id})
       : super(key: key);
@@ -70,10 +70,10 @@ class _MessageState extends State<Message> {
                 child: TextFormField(
                   enabled: false,
                   cursorColor: Theme.of(context).cursorColor,
-                  initialValue: widget.matric,
+                  initialValue: widget.phone,
                   maxLength: 20,
                   decoration: InputDecoration(
-                    labelText: 'Matric',
+                    labelText: 'Phone',
                     labelStyle: TextStyle(
                       color: Colors.black,
                     ),
@@ -117,7 +117,7 @@ class _MessageState extends State<Message> {
   }
 
   void openwhatssap() async {
-    var whatsapp = widget.matric;
+    var whatsapp = widget.phone;
     var whatsappURl_android = 'https://wa.me/' + whatsapp + '?text=';
     if (await canLaunch(whatsappURl_android)) {
       await launch(whatsappURl_android);

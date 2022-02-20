@@ -127,8 +127,8 @@ class _ListStudentState extends State<ListStudent> {
                                                                       Message(
                                                                         name: student
                                                                             .name,
-                                                                        matric:
-                                                                            student.phonenum,
+                                                                        phone: student
+                                                                            .phonenum,
                                                                         cohort:
                                                                             student.cohort,
                                                                         id: student

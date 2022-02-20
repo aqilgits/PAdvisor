@@ -154,6 +154,7 @@ class DatabaseService {
         'cohort': a.cohort,
         'phone': a.phonenum,
         'advisor': a.advisorID,
+        'archive': a.archive,
       });
 
       data = _db.collection('Student').doc(uid).set({
@@ -194,7 +195,6 @@ class DatabaseService {
     return data;
   }
 
-  
 //------------------------------------------------------------------------------//
   // //user data from snapshot
   // UserData _userDatafromSnapshot(DocumentSnapshot snapshot) {
