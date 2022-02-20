@@ -75,7 +75,8 @@ class _DashboardStudentState extends State<DashboardStudent> {
                       Provider.of<List<AnnouncementModels>>(context)
                           .elementAt(index);
                   return Container(
-                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
+                    padding: const EdgeInsets.all(11),
                     width: MediaQuery.of(context).size.width * 0.95,
                     decoration: BoxDecoration(
                         color: Colors.grey[200],

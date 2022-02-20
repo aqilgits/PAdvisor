@@ -41,7 +41,7 @@ class _WrapperState extends State<Wrapper> {
                 return StudentWrapper(data: data);
               } else if (data['role'] == 'Advisor' ||
                   data['role'] == 'advisor') {
-                return AdviserWrapper();
+                return AdviserWrapper(data: data);
               } else {
                 return HodWrapper();
               }

@@ -6,7 +6,12 @@ import 'package:padvisor/screen/adviser/listStudent.dart';
 import 'package:padvisor/services/auth.dart';
 
 class AdviserWrapper extends StatefulWidget {
-  const AdviserWrapper({Key? key}) : super(key: key);
+  const AdviserWrapper({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final Map<dynamic, dynamic> data;
 
   @override
   _AdviserWrapperState createState() => _AdviserWrapperState();
@@ -18,7 +23,7 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
 
   @override
   void initState() {
-    _child = const ListAnnouncement();
+    _child = ListAnnouncement(data: widget.data);
     super.initState();
   }
 
@@ -80,7 +85,9 @@ class _AdviserWrapperState extends State<AdviserWrapper> {
           _child = const ListReport();
           break;
         case 1:
-          _child = const ListAnnouncement();
+          _child = ListAnnouncement(
+            data: widget.data,
+          );
           break;
         case 2:
           _child = const ListStudent();

@@ -14,8 +14,8 @@ class DatabaseService {
   DatabaseService.withoutUID() : uid = "";
 
   //collection reference
-  // final CollectionReference userCollection =
-  //     FirebaseFirestore.instance.collection('User');
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('User');
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 //create Announcement
@@ -112,13 +112,13 @@ class DatabaseService {
   Future updateUserData(Student a) async {
     dynamic data;
     try {
-      // data = userCollection.doc(uid).set({
-      //   'name': a.name,
-      //   'role': a.role,
-      //   'cohort': a.cohort,
-      //   'phone': a.phonenum,
-      //   'advisor': a.advisorID,
-      // });
+      data = userCollection.doc(uid).set({
+        'name': a.name,
+        'role': a.role,
+        'cohort': a.cohort,
+        'phone': a.phonenum,
+        'advisor': a.advisorID,
+      });
 
       data = _db.collection('Student').doc(uid).set({
         'name': a.name,
