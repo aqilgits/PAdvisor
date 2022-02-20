@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:padvisor/models/Users.dart';
 import 'package:padvisor/models/announcement_model.dart';
 import 'package:padvisor/models/report_model.dart';
+import 'package:padvisor/models/Users.dart';
 
 class DatabaseService {
   final String uid;
@@ -91,17 +92,44 @@ class DatabaseService {
     return data;
   }
 
-  Future updateUserData(String name, String role, String cohort,
-      String phonenum, String advisorID) async {
-    return await userCollection.doc(uid).set({
-      'name': name,
-      'role': role,
-      'cohort': cohort,
-      'phone': phonenum,
-      'advisor': advisorID,
-    });
+  Future updateUserData(Student a) async {
+    dynamic data;
+    try {
+      data = userCollection.doc(uid).set({
+        'name': a.name,
+        'role': a.role,
+        'cohort': a.cohort,
+        'phone': a.phonenum,
+        'advisor': a.advisorID,
+      });
+
+      data = _db.collection('Student').doc(uid).set({
+        'name': a.name,
+        'role': a.role,
+        'cohort': a.cohort,
+        'phone': a.phonenum,
+        'advisor': a.advisorID,
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+    return data;
   }
 
+//retrive student
+  Stream<List<Student>> streamStudent() {
+    dynamic data;
+    try {
+      data = _db.collection('Student').snapshots().map((list) => list.docs
+          .map((students) => Student.fromFireStrore(students))
+          .toList());
+    } catch (e) {
+      print(e.toString());
+    }
+    return data;
+  }
+
+//------------------------------------------------------------------------------//
   // //user data from snapshot
   // UserData _userDatafromSnapshot(DocumentSnapshot snapshot) {
   //   return UserData(
@@ -116,6 +144,7 @@ class DatabaseService {
   //   return userCollection.doc(uid).snapshots().map(_userDatafromSnapshot);
   // }
 
+//upload file tio dtabase
   Future uploadFileToFirebase(
       String title, String desc, File? file, String uid) async {
     var filename = DateTime.now().toString();

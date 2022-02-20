@@ -183,8 +183,6 @@ class _ReportFormState extends State<ReportForm> {
                         ReportModels(
                             title: title, desc: desc, url: downloadUrl),
                         AuthService().userID);
-                    DatabaseService(uid: user.uid)
-                        .uploadFileToFirebase(title, desc, file, user.uid);
                     Navigator.pop(context);
                   },
                   child: const Text("Submit"))
