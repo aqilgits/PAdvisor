@@ -83,7 +83,7 @@ class _ListStudentState extends State<ListStudent> {
                                       AsyncSnapshot<List<Student>> snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return Loading();
+                                      return Container();
                                     } else {
                                       List<Student>? students = snapshot.data;
 

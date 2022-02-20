@@ -143,10 +143,6 @@ class DatabaseService {
       DocumentSnapshot<Map<String, dynamic>> data =
           await _db.collection('Student').doc(id).get();
       String datas = data['advisor'];
-      // List<String> cohorts = [];
-      // for (var element in datas) {
-      //   cohorts.add(element.toString());
-      // }
       return datas;
     } catch (e) {
       print('error');
